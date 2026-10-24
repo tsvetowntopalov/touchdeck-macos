@@ -1,0 +1,41 @@
+# Generate the Xcode project with:  brew install xcodegen && xcodegen generate
+name: TouchDeck
+options:
+  bundleIdPrefix: com.touchdeck
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+
+targets:
+  TouchDeck:
+    type: application
+    platform: macOS
+    sources:
+      - path: TouchDeck
+    configFiles:
+      Debug: Config/Signing.xcconfig
+      Release: Config/Signing.xcconfig
+    info:
+      path: TouchDeck/Info.plist
+      properties:
+        LSUIElement: true                 # menu-bar only, no Dock icon
+        CFBundleDisplayName: TouchDeck
+        CFBundleShortVersionString: "0.1.0"
+        CFBundleVersion: "1"
+    entitlements:
+      path: TouchDeck/TouchDeck.entitlements
+      properties:
+        com.apple.security.app-sandbox: false   # event taps + private frameworks need this off
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.touchdeck.app
+        SWIFT_OBJC_BRIDGING_HEADER: TouchDeck/Bridging/TouchDeck-Bridging-Header.h
+        ENABLE_HARDENED_RUNTIME: YES
+        CODE_SIGN_STYLE: Automatic
+        # Team and identity come from Config/Signing.xcconfig (+ your git-ignored Local.xcconfig).
+    scheme: {}

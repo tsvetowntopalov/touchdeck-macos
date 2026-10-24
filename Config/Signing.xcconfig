@@ -1,0 +1,12 @@
+// Code signing for TouchDeck.
+//
+// Default: ad-hoc "Sign to Run Locally", so anyone can build without an Apple account.
+// Downside: every rebuild gets a new identity and macOS forgets the Accessibility grant.
+//
+// To keep the grant across rebuilds, copy Local.xcconfig.example to Local.xcconfig
+// (git-ignored) and put your own team ID in it.
+
+CODE_SIGN_IDENTITY = -
+DEVELOPMENT_TEAM =
+
+#include? "Local.xcconfig"
